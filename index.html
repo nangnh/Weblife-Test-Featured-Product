@@ -513,7 +513,7 @@
 
             <span class="visually-hidden">ログイン</span>
           </a>
-          <a href="/cart" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
+          <a href="/cart.html" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
               class="icon icon-cart" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 40 40" fill="none">
               <path fill="currentColor" fill-rule="evenodd"
@@ -964,6 +964,7 @@
   <script src="assets/predictive-search.js" defer="defer"></script>
   <script>
     let products = [];
+    const bodyHistory = [];
     let favorited = JSON.parse(localStorage.getItem('favorite-products')) || [];
     console.log('>favorited', favorited)
 
@@ -991,7 +992,7 @@
                 <div class="card__content">
                   <div class="card__information">
                     <h3 class="card__heading h5">
-                      <a href="#" class="full-unstyled-link">
+                      <a href="/detail.html" class="full-unstyled-link">
                         ${product.title}
                       </a>
                     </h3> 
@@ -1028,6 +1029,31 @@
         setFavoriteProducts();
       });
     });
+
+    const nav = `<a href="/">Home</a> | 
+                   <a href="/about">About</a> | 
+                   <a href="/contact">Contact</a>`;
+      const routes = {
+        "/": `<h1>Home</h1>${nav}<p>Welcome home!</p>`,
+        "/about": `<h1>About</h1>${nav}<p>This is a tiny SPA</p>`,
+      };
+      const render = path => {
+        document.querySelector("#app")
+          .innerHTML = routes[path] || `<h1>404</h1>${nav}`
+          ;
+        document.querySelectorAll('[href^="/"]').forEach(el =>
+          el.addEventListener("click", evt => {
+            evt.preventDefault();
+            const { pathname: path } = new URL(evt.target.href);
+            window.history.pushState({ path }, path, path);
+            render(path);
+          })
+        );
+      };
+      window.addEventListener("popstate", e =>
+        render(new URL(window.location.href).pathname)
+      );
+      render("/");
 
     function setFavoriteProducts() {
       let favoriteButtons = document.querySelectorAll('favorite-button');

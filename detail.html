@@ -744,7 +744,7 @@
 
             <span class="visually-hidden">ログイン</span>
           </a>
-          <a href="/cart" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
+          <a href="/cart.html" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
               class="icon icon-cart" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 40 40" fill="none">
               <path fill="currentColor" fill-rule="evenodd"
@@ -2131,9 +2131,12 @@
                     data-type="add-to-cart-form"><input type="hidden" name="form_type" value="product"><input
                       type="hidden" name="utf8" value="✓"><input type="hidden" name="id" value="43548272427230"
                       class="product-variant-id">
-                    <div class="product-form__buttons"><button id="ProductSubmitButton-template--16745542713566__main"
+                    <div class="product-form__buttons">
+                      <button id="ProductSubmitButton-template--16745542713566__main"
                         type="submit" name="add"
-                        class="product-form__submit button button--full-width button--secondary">
+                        class="product-form__submit button button--full-width button--secondary"
+                        onclick="gotoCartPage"
+                      >
                         <span>カートに追加する
                         </span>
                         <div class="loading-overlay__spinner hidden">
@@ -2292,6 +2295,9 @@
               hiddenInput.value = event.currentTarget.value;
             });
           });
+          function gotoCartPage() {
+            window.location.href = "cart.html"
+          }
         </script>
       </section>
 
@@ -3038,7 +3044,7 @@
   </script>
   <script src="assets/predictive-search.js" defer="defer"></script>
 
-  <product-modal id="ProductModal-template--16745542713566__main" class="product-media-modal media-modal" open="">
+  <product-modal id="ProductModal-template--16745542713566__main" class="product-media-modal media-modal">
     <div class="product-media-modal__dialog" role="dialog" aria-label="メディアギャラリー" aria-modal="true" tabindex="-1">
       <button id="ModalClose-template--16745542713566__main" type="button" class="product-media-modal__toggle"
         aria-label="閉じる">
